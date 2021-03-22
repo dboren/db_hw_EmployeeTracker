@@ -1,0 +1,9 @@
+DROP DATABASE IF EXISTS workforce_db;
+
+CREATE DATABASE workforce_db;
+
+CREATE TABLE department (
+    id INTEGER(11) AUTO_INCREMENT NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
+);
