@@ -7,3 +7,13 @@ CREATE TABLE department (
     name VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE role (
+    id INTEGER(11) AUTO_INCREMENT NOT NULL,
+    title VARCHAR(30) NOT NULL,
+    salary DEC(10000,2),
+    department_id INTEGER(11),
+    PRIMARY KEY (id),
+    FOREIGN KEY department_id REFERENCES department(id)
+);
+
