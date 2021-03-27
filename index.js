@@ -3,6 +3,8 @@ const inquirer = require("inquirer");
 const consoletable = require("console.table");
 require("dotenv").config();
 
+// const fullEmployeeSearch = require('./funct/fullsearch');
+
 const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
@@ -29,7 +31,6 @@ const connection = mysql.createConnection({
         'View all employees',
         'view employees by department',
         'View employees by role',
-        'View employees by manager',
         'Update employee role',
         'Add employee',
         'Remove employee',
@@ -50,10 +51,6 @@ const connection = mysql.createConnection({
 
         case 'View employees by role':
           roleEmployeeSearch();
-          break;
-
-        case 'View employees by manager':
-          mgrEmployeeSearch();
           break;
 
         case 'Update employee role':
@@ -85,4 +82,16 @@ const connection = mysql.createConnection({
           break;
       }
     });
+};
+
+
+const fullEmployeeSearch = () => {
+  const query = 'SELECT id, first_name, last_name, role_id, manager_id from workforce_db.employees';
+  connection.query(query, (err, res) => {
+      res.forEach(({ id, first_name, last_name, role_id, manager_id }) => {
+          console.log(
+            `id: ${id} || first_name: ${first_name} || last_name: ${last_name} || role_id: ${role_id} || manager_id: ${manager_id}`
+          );
+      })
+  })
 };
