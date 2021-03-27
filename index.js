@@ -95,3 +95,57 @@ const fullEmployeeSearch = () => {
       })
   })
 };
+
+// const deptEmployeeSearch = () => {
+//   inquirer
+//     .prompt({
+//       name: 'dept',
+//       type: 'input',
+//       message: 'What department would you like to view?',
+//     })
+//     .then((answer) => {
+//       const query = 'SELECT id, first_name, last_name, role_id, manager_id: FROM workforce_db.employees WHERE ?';
+//       connection.query(query, { department: answer.department }, (err, res) => {
+//         res.forEach(({ id, first_name, last_name, role_id, manager_id }) => {
+//           console.log(
+//             `id: ${id} || first_name: ${first_name} || last_name: ${last_name} || role_id: ${role_id} || manager_id: ${manager_id}`
+//           );
+//         });
+
+//       });
+//     });
+// };
+
+// const addRole = () => {
+//   inquirer
+//   .prompt({
+//     name: 'newrole',
+//     type: 'input',
+//     message: 'What is the title of this new role?',
+//   },
+//   {name: 'dept',
+//   type: 'input',
+//   message: 'What department is this role part of?',
+// })
+// };
+
+const addDepartment = () => {
+  inquirer
+  .prompt({
+    name: 'newdept',
+    type: 'input',
+    message: 'What will this new department be called?',
+  })
+  .then((answer) => {
+    connection.query(
+      'INSERT INTO workforce_db.departments SET?',
+      {
+        name: answer,
+      },
+      (err) => {
+        if (err) throw err;
+        console.log('Department added');
+        console.log(answer);
+    })
+  })
+};
