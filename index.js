@@ -38,5 +38,51 @@ const connection = mysql.createConnection({
         'Exit',
       ],
     })
+    .then((answer) => {
+      switch (answer.action) {
+        case 'View all employees':
+          fullEmployeeSearch();
+          break;
 
+        case 'view employees by department':
+          deptEmployeeSearch();
+          break;
+
+        case 'View employees by role':
+          roleEmployeeSearch();
+          break;
+
+        case 'View employees by manager':
+          mgrEmployeeSearch();
+          break;
+
+        case 'Update employee role':
+          updateRole();
+          break;
+
+        case 'Add employee':
+          addEmployee();
+          break;
+
+        case 'Remove employee':
+          removeEmployee();
+          break;
+            
+        case 'Add role':
+          addRole();
+          break;
+
+        case 'Add department':
+          addDepartment();
+          break;
+
+        case 'Exit':
+          connection.end();
+          break;  
+
+        default:
+          console.log(`Invalid action: ${answer.action}`);
+          break;
+      }
+    });
 };
