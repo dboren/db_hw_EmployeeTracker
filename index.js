@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const cTable = require("console.table");
-require("dotenv").config();
+require('dotenv').config();
 
 // const fullEmployeeSearch = require('./funct/fullsearch');
 
@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
     port: 3306,
     user: 'root',
 
-    password: 'Cheliax541',
+    password: process.env.DB_PASS,
     database: 'workforce_db',
     // insecureAuth: true
   });
@@ -128,38 +128,44 @@ const viewRoles = () => {
   })
 };
 
-// const deptEmployeeSearch = () => {
+// const roleEmployeeSearch = () => {
 //   inquirer
 //     .prompt({
-//       name: 'dept',
+//       name: 'roles',
 //       type: 'input',
-//       message: 'What department would you like to view?',
+//       message: 'What role would you like to view?',
 //     })
 //     .then((answer) => {
-//       const query = 'SELECT id, first_name, last_name, role_id, manager_id: FROM workforce_db.employees WHERE ?';
-//       connection.query(query, { department: answer.department }, (err, res) => {
-//         res.forEach(({ id, first_name, last_name, role_id, manager_id }) => {
+//       let query = 
+//         'SELECT employees.id, employees.first_name, employees.last_name, employees.role_id, empoloyees.manager_id ';
+//       query +=
+//         'FROM workforce_db.employees LEFT JOIN workforce_db.roles ON employees.role_id = roles.id';
+//       connection.query(query, [answer.roles, answer.roles], (err, res) => {
+//         console.log('answer.roles', answer.roles);
+//         res.forEach(({ id, first_name, last_name, title, role_id, manager_id }) => {
 //           console.log(
-//             `id: ${id} || first_name: ${first_name} || last_name: ${last_name} || role_id: ${role_id} || manager_id: ${manager_id}`
+
+//             `id: ${id} || first_name: ${first_name} || last_name: ${last_name} || title ${title} || role_id: ${role_id} || manager_id: ${manager_id}}`
 //           );
 //         });
 
-//       });
+//       })
 //     });
-// };
+//   };
+      
 
-// const addRole = () => {
-//   inquirer
-//   .prompt({
-//     name: 'newrole',
-//     type: 'input',
-//     message: 'What is the title of this new role?',
-//   },
-//   {name: 'dept',
-//   type: 'input',
-//   message: 'What department is this role part of?',
-// })
-// };
+const addRole = () => {
+  inquirer
+  .prompt({
+    name: 'newrole',
+    type: 'input',
+    message: 'What is the title of this new role?',
+  },
+  {name: 'dept',
+  type: 'input',
+  message: 'What department is this role part of?',
+})
+};
 
 const addDepartment = () => {
   inquirer
