@@ -249,3 +249,45 @@ const addEmployee = () => {
   })
 })
 };
+
+const updateRole = () => {
+  inquirer
+  .prompt([{
+    name: 'id',
+    type: 'input',
+    message: 'What is the employee ID?',
+    validate(value) {
+      if (isNaN(value) === false) {
+        return true;
+      }
+      return false;
+    },
+  },
+  {name: 'role',
+  type: 'input',
+  message: 'What is the ID number of their new role?',
+  validate(value) {
+    if (isNaN(value) === false) {
+      return true;
+    }
+    return false;
+  },
+  }])
+  .then((answer) => {
+    connection.query(
+      'UPDATE employees SET ? WHERE ?', 
+      [
+        {
+        role_id: answer.role,
+      },
+      {
+        id: answer.id,
+      },
+    ],
+        (err) => {
+        if (err) throw err;
+        console.log('Employee updated');
+    })
+  })
+};
+
