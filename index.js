@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
-const consoletable = require("console.table");
+const cTable = require("console.table");
 require("dotenv").config();
 
 // const fullEmployeeSearch = require('./funct/fullsearch');
@@ -112,6 +112,17 @@ const viewDepts = () => {
       res.forEach(({ id, name}) => {
           console.log(
             `id: ${id} || name: ${name}}`
+          );
+      })
+  })
+};
+
+const viewRoles = () => {
+  const query = 'SELECT id, title, salary, department_id from workforce_db.roles';
+  connection.query(query, (err, res) => {
+      res.forEach(({ id, title, salary, department_id}) => {
+          console.log(
+            `id: ${id} || title: ${title} || salary: ${salary} || department_id: ${department_id}}`
           );
       })
   })
