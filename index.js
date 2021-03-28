@@ -140,7 +140,7 @@ const addDepartment = () => {
     connection.query(
       'INSERT INTO workforce_db.departments SET?',
       {
-        name: answer,
+        name: answer.newdept,
       },
       (err) => {
         if (err) throw err;
