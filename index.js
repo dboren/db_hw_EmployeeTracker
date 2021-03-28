@@ -164,6 +164,17 @@ const addRole = () => {
   {name: 'dept',
   type: 'input',
   message: 'What department is this role part of?',
+  })
+.then((answer) => {
+  connection.query(
+    'INSERT INTO roles SET ?', 
+    {
+      title: answer.newrole,
+    },
+      (err) => {
+      if (err) throw err;
+      console.log('Role added');
+  })
 })
 };
 
