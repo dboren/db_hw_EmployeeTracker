@@ -156,7 +156,7 @@ const viewRoles = () => {
 
 const addRole = () => {
   inquirer
-  .prompt({
+  .prompt([{
     name: 'newrole',
     type: 'input',
     message: 'What is the title of this new role?',
@@ -164,12 +164,25 @@ const addRole = () => {
   {name: 'dept',
   type: 'input',
   message: 'What department is this role part of?',
-  })
+  },
+  {
+    name: 'salary',
+    type: 'input',
+    message: "what is the annual salary of this position?",
+    validate(value) {
+      if (isNaN(value) === false) {
+        return true;
+      }
+      return false;
+    },
+  },
+  ])
 .then((answer) => {
   connection.query(
     'INSERT INTO roles SET ?', 
     {
       title: answer.newrole,
+      salary: answer.salary
     },
       (err) => {
       if (err) throw err;
