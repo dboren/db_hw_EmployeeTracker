@@ -29,8 +29,10 @@ const connection = mysql.createConnection({
       message: 'Welcome to Workforce Manager. What would you like to do?',
       choices: [
         'View all employees',
-        'view employees by department',
+        'View employees by department',
         'View employees by role',
+        'View all departments',
+        'View all roles',
         'Update employee role',
         'Add employee',
         'Remove employee',
@@ -45,12 +47,20 @@ const connection = mysql.createConnection({
           fullEmployeeSearch();
           break;
 
-        case 'view employees by department':
+        case 'View employees by department':
           deptEmployeeSearch();
           break;
 
         case 'View employees by role':
           roleEmployeeSearch();
+          break;
+
+        case 'View all departments':
+          viewDepts();
+          break;
+
+        case 'View all roles':
+          viewRoles();
           break;
 
         case 'Update employee role':
@@ -91,6 +101,17 @@ const fullEmployeeSearch = () => {
       res.forEach(({ id, first_name, last_name, role_id, manager_id }) => {
           console.log(
             `id: ${id} || first_name: ${first_name} || last_name: ${last_name} || role_id: ${role_id} || manager_id: ${manager_id}`
+          );
+      })
+  })
+};
+
+const viewDepts = () => {
+  const query = 'SELECT id, name from workforce_db.departments';
+  connection.query(query, (err, res) => {
+      res.forEach(({ id, name}) => {
+          console.log(
+            `id: ${id} || name: ${name}}`
           );
       })
   })
