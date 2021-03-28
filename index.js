@@ -211,3 +211,41 @@ const addDepartment = () => {
     })
   })
 };
+
+const addEmployee = () => {
+  inquirer
+  .prompt([{
+    name: 'fname',
+    type: 'input',
+    message: 'What is their first name?',
+  },
+  {name: 'lname',
+  type: 'input',
+  message: 'What is their last name?',
+  },
+  {
+    name: 'role',
+    type: 'input',
+    message: "what is the id number of their job?",
+    validate(value) {
+      if (isNaN(value) === false) {
+        return true;
+      }
+      return false;
+    },
+  },
+  ])
+.then((answer) => {
+  connection.query(
+    'INSERT INTO employees SET ?', 
+    {
+      first_name: answer.fname,
+      last_name: answer.lname,
+      role_id: answer.role
+    },
+      (err) => {
+      if (err) throw err;
+      console.log('Employee added');
+  })
+})
+};
